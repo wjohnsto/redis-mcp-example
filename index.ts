@@ -12,6 +12,7 @@ import type { ContentBlock } from "@anthropic-ai/sdk/resources.js";
 dotenv.config();
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const CHAT_MODEL = process.env.CHAT_MODEL || "claude-3-5-sonnet-20241022";
 const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_USERNAME = process.env.REDIS_USERNAME || "";
@@ -74,7 +75,7 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
     ];
 
     const response = await this.anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
+      model: CHAT_MODEL,
       max_tokens: 1000,
       messages,
       tools: [this.getToolFactory()],
@@ -127,7 +128,7 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
     ];
 
     const response = await this.anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
+      model: CHAT_MODEL,
       max_tokens: 1000,
       messages,
       tools: toolsToUse,
@@ -180,7 +181,7 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
         });
 
         const nextResponse = await this.anthropic.messages.create({
-          model: "claude-3-5-sonnet-20241022",
+          model: CHAT_MODEL,
           max_tokens: 1000,
           messages,
           tools: toolsToUse,
@@ -214,7 +215,6 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
           continue;
         }
 
-        console.log("\n");
         await this.processQuery(message);
       }
     } catch (error) {

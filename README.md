@@ -19,3 +19,8 @@ To run:
 ```bash
 bun dev
 ```
+
+Example prompts:
+
+1. Generate three sample users and store them in redis as JSON. Log each user created to a stream.
+1. Generate a conversation between a parent and their child about a school project and store it in a stream.
