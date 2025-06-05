@@ -1,0 +1,22 @@
+{
+  "name": "redis-mcp-chat",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.53.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "dotenv": "^16.5.0"
+  },
+  "scripts": {
+    "dev": "bun run index.ts",
+    "build": "bun build index.ts --outdir dist --target module",
+    "test": "bun test"
+  }
+}
