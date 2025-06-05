@@ -118,7 +118,7 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
     const messages: MessageParam[] = [
       {
         role: "user",
-        content: "You are a helpful assistant. Use the tools provided to answer the query. Once you're done call the 'final_tool' to indicate that you have made all the necessary tool calls."
+        content: "Use the tools provided to answer the query. Once you're done call the 'final_tool' to indicate that you have made all the necessary tool calls."
       },
       {
         role: "user",
@@ -133,8 +133,6 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
       tools: toolsToUse,
     });
 
-    const finalText = [];
-
     response.content = this.sortResult(response.content);
 
     while (response.content.length > 0) {
@@ -145,14 +143,14 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
       }
 
       if (content.type === "text") {
-        finalText.push(content.text);
-
+        console.log(content.text);
         messages.push({
           role: "assistant",
           content: content.text
         });
       } else if (content.type === "tool_use") {
         const toolName = content.name;
+
         messages.push({
           role: "assistant",
           content: [content]
@@ -160,12 +158,13 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
 
         if (toolName === "final-tool") {
           const finalResponse = content.input as { final_response: string };
-          finalText.push(finalResponse.final_response);
+          console.log(finalResponse.final_response);
           break;
         }
 
         const toolArgs = content.input as { [x: string]: unknown } | undefined;
 
+        console.log(`> ${toolName}(${JSON.stringify(toolArgs)})`)
         const result = await this.mcp.callTool({
           name: toolName,
           arguments: toolArgs,
@@ -191,8 +190,6 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
         response.content.push(...nextResponse.content)
       }
     }
-
-    return finalText.join("\n");
   }
 
   async chatLoop() {
@@ -217,8 +214,8 @@ Use the 'inform-tool' tool to tell me which tools make sense to use. Send only t
           continue;
         }
 
-        const response = await this.processQuery(message);
-        console.log("\n" + response);
+        console.log("\n");
+        await this.processQuery(message);
       }
     } catch (error) {
       console.error("An error occurred during the chat loop:", error);
