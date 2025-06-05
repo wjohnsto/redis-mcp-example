@@ -4,3 +4,7 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
+    networks:
+      - redis_network
+networks:
+  redis_network:

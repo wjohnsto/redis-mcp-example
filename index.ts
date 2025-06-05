@@ -17,6 +17,7 @@ const REDIS_HOST = process.env.REDIS_HOST;
 const REDIS_PORT = process.env.REDIS_PORT;
 const REDIS_USERNAME = process.env.REDIS_USERNAME || "";
 const REDIS_PWD = process.env.REDIS_PWD || "";
+const DOCKER_NETWORK = process.env.DOCKER_NETWORK || "bridge";
 
 if (!ANTHROPIC_API_KEY) {
   throw new Error("ANTHROPIC_API_KEY is not set");
@@ -44,6 +45,8 @@ class MCPClient {
           "--rm",
           "--name",
           "redis-mcp-server",
+          "--network",
+          DOCKER_NETWORK,
           "-i",
           "-e",
           `REDIS_HOST=${REDIS_HOST}`,

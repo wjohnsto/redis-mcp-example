@@ -14,7 +14,21 @@ cp .env.example .env
 
 Then edit the `.env` file with your Redis connection details and Anthropic key.
 
-To run:
+To setup local Redis:
+
+```bash
+docker compose up -d
+```
+
+Update the `.env` file with the Redis connection details if necessary.
+
+```bash
+REDIS_HOST=redis
+REDIS_PORT=6379
+DOCKER_NETWORK=redis-mcp-chat_redis_network
+```
+
+To run the application:
 
 ```bash
 bun dev
