@@ -22,12 +22,6 @@ docker compose up -d
 
 Update the `.env` file with the Redis connection details if necessary.
 
-```bash
-REDIS_HOST=redis
-REDIS_PORT=6379
-DOCKER_NETWORK=redis-mcp-chat_redis_network
-```
-
 To run the application:
 
 ```bash
