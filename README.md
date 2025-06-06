@@ -30,6 +30,6 @@ bun dev
 
 Example prompts:
 
-1. Generate three sample users and store them in redis as JSON. Then generate a login stream that indicates the users logging in and out of the system.
+1. Generate and store three separate users. Then generate a login stream that indicates the users logging in and out of a system.
 1. Generate a conversation between a parent and their child about a school project and store it in a stream.
 1. Generate some example cached queries and responses for a weather application.
