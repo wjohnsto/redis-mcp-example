@@ -1,4 +1,7 @@
-import { createAnthropic, type AnthropicProviderOptions } from "@ai-sdk/anthropic";
+import {
+  createAnthropic,
+  type AnthropicProviderOptions,
+} from "@ai-sdk/anthropic";
 import {
   experimental_createMCPClient,
   generateText,
@@ -27,7 +30,7 @@ const anthropic = createAnthropic({
 const model = anthropic(CHAT_MODEL);
 const providerOptions = {
   anthropic: {
-    thinking: { type: "disabled", budgetTokens: 1000 }
+    thinking: { type: "disabled", budgetTokens: 1000 },
   } satisfies AnthropicProviderOptions,
 };
 
@@ -161,9 +164,20 @@ async function cleanup(client: MCPClient | null) {
   if (client) {
     try {
       await client.close();
-    } catch (error) { console.log(error); }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
+
+async function exit(code = 0) {
+  await cleanup(mcpClient);
+  process.exit(code);
+}
+
+process.on("SIGINT", exit);
+process.on("SIGTERM", exit);
+process.on("SIGQUIT", exit);
 
 try {
   mcpClient = await experimental_createMCPClient({
@@ -175,10 +189,7 @@ try {
   });
 
   await chatLoop(mcpClient);
+  await exit(0);
 } catch (error) {
-  await cleanup(mcpClient);
-  process.exit(1);
-} finally {
-  await cleanup(mcpClient);
-  process.exit(0);
+  await exit(1);
 }
