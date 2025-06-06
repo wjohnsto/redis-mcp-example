@@ -10,9 +10,10 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.53.0",
-    "@modelcontextprotocol/sdk": "^1.12.1",
-    "dotenv": "^16.5.0"
+    "@ai-sdk/anthropic": "^1.2.12",
+    "ai": "^4.3.16",
+    "dotenv": "^16.5.0",
+    "zod": "^3.25.55"
   },
   "scripts": {
     "dev": "bun run index.ts",

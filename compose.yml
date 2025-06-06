@@ -3,7 +3,18 @@ services:
     container_name: redis
     image: redis:latest
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT:-6379}:6379"
+    networks:
+      - redis_network
+  redis-mcp-server:
+    container_name: redis-mcp-server
+    image: mcp/redis
+    ports:
+      - "${REDIS_MCP_SERVER_PORT:-8000}:8000"
+    environment:
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - MCP_TRANSPORT=sse
     networks:
       - redis_network
 networks:
