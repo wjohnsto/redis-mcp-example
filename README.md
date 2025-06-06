@@ -1,6 +1,6 @@
 # redis-mcp-chat
 
-[!Redis MCP Terminal Chat](./demo/redis-mcp-terminal-chat.gif)
+![Redis MCP Terminal Chat](./demo/redis-mcp-terminal-chat.gif)
 
 To install dependencies:
 
